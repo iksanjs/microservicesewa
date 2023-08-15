@@ -82,11 +82,48 @@ class sppkController extends Controller
     {
        $sppk= sppk::find($id_sppk);
       
-       $sppk->name = $request->input('name');
-       $sppk->price = $request->input('price');
-       $sppk->description = $request->input('description');
-       $sppk->save();
+        $sppk->tgl_sppk = $request->input('tgl_sppk');
+        $sppk->nama_pt = $request->input('nama_pt');
+        $sppk->nama_cabang = $request->input('nama_cabang');
+        $sppk->alamat = $request->input('alamat');
+        $sppk->kategori = $request->input('kategori');
+        $sppk->merk = $request->input('merk');
+        $sppk->tipe = $request->input('tipe');
+        $sppk->tahun = $request->input('tahun');
+        $sppk->warna = $request->input('warna');
+        $sppk->nama = $request->input('nama');
+        $sppk->no_hp = $request->input('no_hp');
+        $sppk->jabatan = $request->input('jabatan');
+        $sppk->tgl_awal = $request->input('tgl_awal');
+        $sppk->tgl_akhir = $request->input('tgl_akhir');
+        $sppk->biaya_sewa = $request->input('biaya_sewa');
+        $sppk->status = 'Proses Approval';
+        $sppk->approval = 'Proses Approval';
+        $sppk->save();
        return response()->json($sppk);
+    }
+
+    public function approved($id_sppk)
+    {
+        $sppk = SPPK::find($id_sppk);
+
+        $sppk->status = 'Approved';
+        $sppk->approval = 'Approved';
+        $sppk->save();
+
+        return response()->json($sppk);
+    }
+
+    public function rejected(Request $request, $id_sppk)
+    {
+        $sppk = SPPK::find($id_sppk);
+
+        $sppk->keterangan = $request->input('keterangan');
+        $sppk->status = 'Reject';
+        $sppk->approval = 'Reject';
+        $sppk->save();
+
+        return response()->json($sppk);
     }
 
     public function destroy($id_sppk)
