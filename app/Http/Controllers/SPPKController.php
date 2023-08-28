@@ -18,9 +18,10 @@ class sppkController extends Controller
   
     public function index()
     {
-        
       $sppks = SPPK::all();
-      return response()->json($sppks);
+      $revisisppks = SPPK::where('approval', 'Reject')->get();
+      $prosessppks = SPPK::where('approval', 'Proses Approval')->get();
+      return response()->json([$sppks, $revisisppks, $prosessppks]);
     }
 
     public function create(Request $request)
