@@ -13,5 +13,6 @@ class STWahanatoCabang extends Model
     *
     * @var array
     */
-    protected $fillable = ['tgl_st', 'nama_penyerah', 'nama_penerima', 'no_polisi', 'id_penyewa', 'id_pemakai', 'id_kontraksewa', 'status', 'keterangan', 'approval'];
+    protected $fillable = ['tgl_st', 'nama_penyerah', 'nama_penerima', 'no_polisi', 
+    'id_penyewa', 'id_pemakai', 'id_kontraksewa', 'status', 'keterangan', 'approval'];
 }

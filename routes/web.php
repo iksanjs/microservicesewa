@@ -15,15 +15,17 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->group(['prefix'=>'api/sewa'], function() use($router){
+$router->group(['prefix'=>'api/sewa/sppks'], function() use($router){
 
-    $router->get('/sppks', 'SPPKController@index');
-    $router->post('/sppks', 'SPPKController@create');
-    $router->get('/sppks/{id_sppk}', 'SPPKController@show');
-    $router->put('/sppks/{id_sppk}', 'SPPKController@update');
-    $router->delete('/sppks/{id_sppk}', 'SPPKController@destroy');
-    $router->put('/sppks/{id_sppk}/approve', 'SPPKController@approved');
-    $router->put('/sppks/{id_sppk}/reject', 'SPPKController@rejected');
+    $router->get('/', 'SPPKController@index');
+    $router->post('/', 'SPPKController@create');
+    $router->get('/antriansppks', 'SPPKController@antrian_sppk');
+    $router->get('/{id_sppk}', 'SPPKController@show');
+    $router->put('/{id_sppk}', 'SPPKController@update');
+    $router->delete('/{id_sppk}', 'SPPKController@destroy');
+    $router->put('/{id_sppk}/approve', 'SPPKController@approved');
+    $router->put('/{id_sppk}/reject', 'SPPKController@rejected');
+    
  
  });
 
@@ -31,9 +33,13 @@ $router->group(['prefix'=>'api/sewa'], function() use($router){
 
     $router->get('/', 'KontrakSewaController@index');
     $router->post('/', 'KontrakSewaController@create');
+    $router->get('/proseskontraksewa', 'KontrakSewaController@proses_kontraksewa');
+    $router->get('/sewaberjalan', 'KontrakSewaController@sewa_berjalan');
+    $router->get('/antriankontraksewas', 'KontrakSewaController@antrian_kontraksewa');
     $router->get('/{id_kontraksewa}', 'KontrakSewaController@show');
     $router->put('/{id_kontraksewa}/approve', 'KontrakSewaController@approved');
     $router->put('/{id_kontraksewa}/reject', 'KontrakSewaController@rejected');
+    
  
  });
 
@@ -41,6 +47,7 @@ $router->group(['prefix'=>'api/sewa/stwahanatocabangs'], function() use($router)
 
     $router->get('/', 'STWahanatoCabangController@index');
     $router->post('/', 'STWahanatoCabangController@create');
+    $router->get('/prosesserahterima', 'STWahanatoCabangController@proses_serahterima');
     $router->get('/{id_stwahanatocabang}', 'STWahanatoCabangController@show');
     $router->put('/{id_stwahanatocabang}', 'STWahanatoCabangController@update');
     $router->put('/{id_stwahanatocabang}/approve', 'STWahanatoCabangController@approved');
@@ -57,12 +64,21 @@ $router->group(['prefix'=>'api/sewa/pengembalians'], function() use($router){
     $router->put('/{id_pengembalian}/reject', 'PengembalianController@rejected');
 });
 
-$router->group(['prefix'=>'api/sewa/penggantianpermanens'], function() use($router){
+$router->group(['prefix'=>'api/sewa/penggantians'], function() use($router){
 
-    $router->get('/', 'PenggantianPermanenController@index');
-    $router->post('/', 'PenggantianPermanenController@create');
-    $router->get('/{id_penggantianpermanen}', 'PenggantianPermanenController@show');
-    $router->put('/{id_penggantianpermanen}', 'PenggantianPermanenController@update');
-    $router->put('/{id_penggantianpermanen}/approve', 'PenggantianPermanenController@approved');
-    $router->put('/{id_penggantianpermanen}/reject', 'PenggantianPermanenController@rejected');
+    $router->get('/', 'PenggantianController@index');
+    $router->post('/', 'PenggantianController@create');
+    $router->get('/{id_penggantian}', 'PenggantianController@show');
+    $router->put('/{id_penggantian}', 'PenggantianController@update');
+    $router->put('/{id_penggantian}/approve', 'PenggantianController@approved');
+    $router->put('/{id_penggantian}/reject', 'PenggantianController@rejected');
+});
+
+$router->group(['prefix'=>'api/sewa/penyewas'], function() use($router){
+    $router->get('/', 'PenyewasController@index');
+    $router->get('/{id_penyewa}', 'PenyewaController@show');
+});
+$router->group(['prefix'=>'api/sewa/pemakais'], function() use($router){
+    $router->get('/', 'PemakaiController@index');
+    $router->get('/{id_pemakai}', 'PemakaiController@show');
 });

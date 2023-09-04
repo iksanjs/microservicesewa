@@ -79,6 +79,12 @@ class sppkController extends Controller
        return response()->json($sppk);
     }
 
+    public function antrian_sppk()
+    {
+      $antrian_sppk = Sppk::where('approval', 'Approved')->where('status', 'Approved')->get();
+      return response()->json($antrian_sppk);
+    }
+
     public function update(Request $request, $id_sppk)
     {
        $sppk= sppk::find($id_sppk);

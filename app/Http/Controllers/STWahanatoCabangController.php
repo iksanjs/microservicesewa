@@ -54,7 +54,7 @@ class STWahanatoCabangController extends Controller
 
         $client = new Client();
 
-        $url = "http://localhost:8006/api/kendaraan/kendaraans/$request->no_polisi/updatestatusprosesst"; // Ganti dengan URL Lumen yang sesuai
+        $url = env("LUMEN_API_URL_KENDARAAN") . "/api/kendaraan/kendaraans/$request->no_polisi/updatestatusprosesst"; // Ganti dengan URL Lumen yang sesuai
         try {
             $response = $client->put($url);
 
@@ -78,6 +78,12 @@ class STWahanatoCabangController extends Controller
     {
        $stwahanatocabang = STWahanatoCabang::find($id_stwahanatocabang);
        return response()->json($stwahanatocabang);
+    }
+
+    public function proses_serahterima()
+    {
+        $stwahanatocabangs = STWahanatoCabang::where('Approval', 'Proses Approval')->get();
+        return response()->json($stwahanatocabangs);
     }
 
     public function update(Request $request, $id_stwahanatocabang)
@@ -106,7 +112,7 @@ class STWahanatoCabangController extends Controller
 
         $client = new Client();
 
-        $url = "http://localhost:8006/api/kendaraan/kendaraans/$request->no_polisi/updatestatusprosesst"; // Ganti dengan URL Lumen yang sesuai
+        $url = env("LUMEN_API_URL_KENDARAAN") . "/api/kendaraan/kendaraans/$request->no_polisi/updatestatusprosesst"; // Ganti dengan URL Lumen yang sesuai
         try {
             $response = $client->put($url);
 
@@ -134,7 +140,7 @@ class STWahanatoCabangController extends Controller
 
         $client = new Client();
 
-        $url = "http://localhost:8006/api/kendaraan/kendaraans/$stwahanatocabang->no_polisi/updatestatusdisewa"; // Ganti dengan URL Lumen yang sesuai
+        $url = env("LUMEN_API_URL_KENDARAAN") . "/api/kendaraan/kendaraans/$stwahanatocabang->no_polisi/updatestatusdisewa"; // Ganti dengan URL Lumen yang sesuai
         try {
             $response = $client->put($url);
 
@@ -164,7 +170,7 @@ class STWahanatoCabangController extends Controller
 
         $client = new Client();
 
-        $url = "http://localhost:8006/api/kendaraan/kendaraans/$stwahanatocabang->no_polisi/updatestatusstreject"; // Ganti dengan URL Lumen yang sesuai
+        $url = env("LUMEN_API_URL_KENDARAAN") . "/api/kendaraan/kendaraans/$stwahanatocabang->no_polisi/updatestatusstreject"; // Ganti dengan URL Lumen yang sesuai
         try {
             $response = $client->put($url);
 

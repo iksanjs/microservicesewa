@@ -79,7 +79,7 @@ class KontrakSewaController extends Controller
 
     $client = new Client();
 
-    $url = "http://localhost:8006/api/kendaraan/kendaraans/$request->no_polisi/updatestatusproses"; // Ganti dengan URL Lumen yang sesuai
+    $url = env("LUMEN_API_URL_KENDARAAN") . "/api/kendaraan/kendaraans/$request->no_polisi/updatestatusproses"; // Ganti dengan URL Lumen yang sesuai
     try {
         $response = $client->put($url);
 
@@ -109,6 +109,24 @@ class KontrakSewaController extends Controller
        return response()->json($kontraksewas);
     }
 
+    public function antrian_kontraksewa()
+    {
+        $kontraksewas = KontrakSewa::where('Approval', 'Approved')->where('status', 'Approved')->get();
+        return response()->json($kontraksewas);
+    }
+
+    public function proses_kontraksewa()
+    {
+        $kontraksewas = KontrakSewa::where('Approval', 'Proses Approval')->get();
+        return response()->json($kontraksewas);
+    }
+
+    public function sewa_berjalan()
+    {
+        $kontraksewas = KontrakSewa::where('status', 'Sewa Berjalan')->get();
+        return response()->json($kontraksewas);
+    }
+
     public function edit($id_kontraksewa)
     {
         //
@@ -120,7 +138,7 @@ class KontrakSewaController extends Controller
         $penyewa = Penyewa::where('id_penyewa', $kontraksewa->id_penyewa)->first();
         $pemakai = Pemakai::where('id_pemakai', $kontraksewa->id_pemakai)->first();
         $client = new Client();
-        $url = "http://localhost:8006/api/kendaraan/kendaraans/$kontraksewa->no_polisi/updatestatusdisewa"; // Ganti dengan URL Lumen yang sesuai
+        $url = env("LUMEN_API_URL_KENDARAAN") . "/api/kendaraan/kendaraans/$kontraksewa->no_polisi/updatestatusdisewa"; // Ganti dengan URL Lumen yang sesuai
         try {
             $response = $client->put($url);
 
@@ -132,6 +150,7 @@ class KontrakSewaController extends Controller
         } catch (\Exception $e) {
             // Tangani jika terjadi kesalahan
         }
+        $kontraksewa->status = 'Approved';
         $kontraksewa->approval = 'Approved';
         $kontraksewa->save();
         $penyewa->status = 'Sudah Kontrak Sewa';

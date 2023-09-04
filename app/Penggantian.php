@@ -4,16 +4,18 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PenggantianPermanen extends Model
+class Penggantian extends Model
 {
-    protected $table = 'penggantian_permanens';
-    protected $primaryKey = 'id_penggantianpermanen';
+    protected $table = 'penggantians';
+    protected $primaryKey = 'id_penggantian';
     
     protected $fillable = [
-        'tgl_penggantianpermanen',
+        'tgl_penggantian',
         'id_kontraksewa',
+        'jenis_penggantian',
         'no_polisi_sebelumnya',
         'no_polisi_pengganti',
+        'status',
         'approval',
         'keterangan',
     ];
